@@ -9,6 +9,7 @@ class Player
 
   def generate(num_balls)
     @balls = []
+    @pins = []
     ball_storage = []
     num_balls.times do
       ball_storage << 'r'
@@ -22,6 +23,7 @@ class Player
 
   def set_answer(player_response)
     @balls = []
+    @pins = []
     player_response.chars.each { |color| @balls << Ball.new(color) }
   end
 
@@ -37,15 +39,10 @@ class Player
     @balls.each_with_index do |ball, index|
       if unique_balls.include?(ball.color)
         @pins << Pin.new()
-        ####
-        @pins[index].only_correct
-        ####
+        @pins.find { |pin| pin.correct == false }.only_correct
       end
-    end
-    #if index correct + ball correct, set pin position to true
-    @balls.each_with_index do |ball, index|
       if ball_array[index] == ball.color
-        @pins[index].both_correct
+        @pins.find { |pin| pin.position == false }.both_correct
       end
     end
   end
