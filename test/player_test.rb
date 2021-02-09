@@ -48,6 +48,28 @@ class PlayerTest < Minitest::Test
     assert_equal 2, player.pins.size
     assert_equal true, player.pins[0].correct
     assert_equal false, player.pins[0].position
+    assert_equal true, player.pins[1].correct
+    assert_equal false, player.pins[1].position
+
+    player.set_answer("rgyb")
+    player.check_answer("brrb")
+    assert_equal 2, player.pins.size
+    assert_equal true, player.pins[0].correct
+    assert_equal true, player.pins[0].position
+    assert_equal true, player.pins[1].correct
+    assert_equal false, player.pins[1].position
+
+    player.set_answer("rrbb")
+    player.check_answer("bbrr")
+    assert_equal 4, player.pins.size
+    assert_equal true, player.pins[0].correct
+    assert_equal false, player.pins[0].position
+    assert_equal true, player.pins[1].correct
+    assert_equal false, player.pins[1].position
+    assert_equal true, player.pins[2].correct
+    assert_equal false, player.pins[2].position
+    assert_equal true, player.pins[3].correct
+    assert_equal false, player.pins[3].position
   end
 
   def test_can_place_pins
@@ -65,5 +87,9 @@ class PlayerTest < Minitest::Test
     player.set_answer("rgyb")
     player.check_answer("brrr")
     assert_equal [2, 0], player.place_pins
+
+    player.set_answer("bryb")
+    player.check_answer("brrr")
+    assert_equal [2, 2], player.place_pins
   end
 end
