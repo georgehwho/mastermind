@@ -20,4 +20,34 @@ class PlayerTest < Minitest::Test
     player.generate(4)
     assert_equal 4, player.balls.size
   end
+
+  def test_player_can_set_answer
+    player = Player.new
+    player.set_answer("rgyb")
+
+    assert_equal "r", player.balls[0].color
+    assert_equal "g", player.balls[1].color
+    assert_equal "y", player.balls[2].color
+    assert_equal "b", player.balls[3].color
+  end
+
+  def test_player_can_check_answer
+    player = Player.new
+    player.set_answer("gybb")
+    player.check_answer("rrrr")
+    assert_equal [], player.pins
+
+    player.set_answer("rgyb")
+    player.check_answer("rrrr")
+    puts player.pins
+    assert_equal true, player.pins[0].correct
+    assert_equal true, player.pins[0].position
+    assert_equal 1, player.pins.size
+
+    # player.set_answer("rgyb")
+    # player.check_answer("brrr")
+    # assert_equal 2, player.pins.size
+    # assert_equal true, player.pins[0].correct
+    # assert_equal false, player.pins[0].position
+  end
 end
