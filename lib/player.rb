@@ -30,10 +30,7 @@ class Player
   # string -> return pins that are correct or in position
   def check_answer(answer)
     ball_array = answer.chars
-    puts ball_array
     unique_balls = ball_array.uniq
-    puts 'start of uniq'
-    puts unique_balls
 
     #adds in and sets to correct
     @balls.each_with_index do |ball, index|
@@ -45,5 +42,23 @@ class Player
         @pins.find { |pin| pin.position == false }.both_correct
       end
     end
+  end
+
+  # returns an array of the results with index 0 being only correct and index 1 meaning both are correct
+  # no argument -> array of results
+  def place_pins
+    return nil if @pins.empty?
+
+    results = [0, 0]
+    @pins.each do |pin|
+      if pin.correct == true
+        results[0] += 1
+      end
+      if pin.position == true
+        results[1] += 1
+      end
+    end
+    @pins = 0
+    results
   end
 end
