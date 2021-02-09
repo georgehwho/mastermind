@@ -29,19 +29,37 @@ class Player
 
   # string -> return pins that are correct or in position
   def check_answer(answer)
+    counter = 0
+    ball_holder = list_balls
     ball_array = answer.chars
     unique_balls = ball_array.uniq
 
     #adds in and sets to correct
-    @balls.each_with_index do |ball, index|
-      if unique_balls.include?(ball.color)
-        @pins << Pin.new()
-        @pins.find { |pin| pin.correct == false }.only_correct
+    ball_array.each_with_index do |ball, index|
+      # handles whether balls are correct
+      if ball_holder.include?(ball)
+        counter += 1
+        ball_holder.delete_at(ball_holder.index(ball))
       end
-      if ball_array[index] == ball.color
+    end
+
+    counter.times do
+      @pins << Pin.new()
+      @pins.find { |pin| pin.correct == false }.only_correct
+    end
+
+    list_balls.each_with_index do |ball, index|
+      # handles whetehr balls are in position
+      if ball_array[index] == ball
         @pins.find { |pin| pin.position == false }.both_correct
       end
     end
+  end
+
+  def list_balls
+    list_of_balls = []
+    @balls.each { |ball| list_of_balls << ball.color }
+    list_of_balls
   end
 
   # returns an array of the results with index 0 being only correct and index 1 meaning both are correct
