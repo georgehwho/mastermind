@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+  require_relative 'test_helper'
 require './lib/player'
 require './lib/turn'
 require './lib/pin'
