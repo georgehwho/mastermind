@@ -1,5 +1,6 @@
 class Player
-  attr_reader :balls, :pins
+  attr_reader :balls,
+              :pins
 
   def initialize()
     @balls = []

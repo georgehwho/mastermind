@@ -1,5 +1,6 @@
 class Pin
-  attr_reader :correct, :position
+  attr_reader :correct,
+              :position
 
   def initialize()
     @correct = false
