@@ -31,7 +31,15 @@ class PlayerTest < Minitest::Test
     assert_equal "b", player.balls[3].color
   end
 
+  def test_list_balls
+    player = Player.new
+    player.set_answer("rgyb")
+
+    assert_equal %w[r g y b], player.list_balls
+  end
+
   def test_player_can_check_answer
+    # skip
     player = Player.new
     player.set_answer("gybb")
     player.check_answer("rrrr")
@@ -39,15 +47,66 @@ class PlayerTest < Minitest::Test
 
     player.set_answer("rgyb")
     player.check_answer("rrrr")
-    puts player.pins
     assert_equal true, player.pins[0].correct
     assert_equal true, player.pins[0].position
     assert_equal 1, player.pins.size
 
-    # player.set_answer("rgyb")
-    # player.check_answer("brrr")
-    # assert_equal 2, player.pins.size
-    # assert_equal true, player.pins[0].correct
-    # assert_equal false, player.pins[0].position
+    player.set_answer("rgyb")
+    player.check_answer("brrr")
+    assert_equal 2, player.pins.size
+    assert_equal true, player.pins[0].correct
+    assert_equal false, player.pins[0].position
+    assert_equal true, player.pins[1].correct
+    assert_equal false, player.pins[1].position
+
+    player.set_answer("rgyb")
+    player.check_answer("brrb")
+    assert_equal 2, player.pins.size
+    assert_equal true, player.pins[0].correct
+    assert_equal true, player.pins[0].position
+    assert_equal true, player.pins[1].correct
+    assert_equal false, player.pins[1].position
+
+    player.set_answer("rrbb")
+    player.check_answer("bbrr")
+    assert_equal 4, player.pins.size
+    assert_equal true, player.pins[0].correct
+    assert_equal false, player.pins[0].position
+    assert_equal true, player.pins[1].correct
+    assert_equal false, player.pins[1].position
+    assert_equal true, player.pins[2].correct
+    assert_equal false, player.pins[2].position
+    assert_equal true, player.pins[3].correct
+    assert_equal false, player.pins[3].position
+
+    player.set_answer("bryb")
+    player.check_answer("brrr")
+    assert_equal 2, player.pins.size
+    assert_equal true, player.pins[0].correct
+    assert_equal true, player.pins[0].position
+    assert_equal true, player.pins[1].correct
+    assert_equal true, player.pins[1].position
+  end
+
+  def test_can_place_pins
+    # skip
+    player = Player.new
+    player.set_answer("gybb")
+    player.check_answer("rrrr")
+    assert_nil player.place_pins
+
+    player.set_answer("rgyb")
+    player.check_answer("rrrr")
+    assert_equal true, player.pins[0].correct
+    assert_equal true, player.pins[0].position
+    assert_equal [1, 1], player.place_pins
+
+    player.set_answer("rgyb")
+    player.check_answer("brrr")
+    assert_equal [2, 0], player.place_pins
+
+    player.set_answer("bryb")
+    player.check_answer("brrr")
+    assert_equal [2, 2], player.place_pins
   end
 end
