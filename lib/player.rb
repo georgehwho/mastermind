@@ -6,6 +6,12 @@ class Player
     @balls = []
     @pins = []
   end
+# Method starts with empty arrays because we want to start fresh in between trurns.
+# Lines 18 - 23 > We are taking the argument "num_balls" and using the times method to get 16
+# balls added into our holder, ball_storage. Lines 24 & 25 > We are using shuffle method
+# to "randomize" the balls and then indexing based on our argument but then subtracting one
+# to account for 0 equaling the 1st ball. Then we are iterating over random_balls, creating
+# a ball object with it's color argument and adding it to our @balls array.
 
   def generate(num_balls)
     @balls = []
@@ -21,18 +27,26 @@ class Player
     random_balls.each { |ball| @balls << Ball.new(ball) }
   end
 
+# Method starts with empty arrays because we want to start fresh in between trurns.
+# We then turn the player_response into an array that we iterate over,convert to colored
+# ball objects, and add our into the @balls array. Basically restructing the argument/answer # and adding into new array.
+
   def set_answer(player_response)
     @balls = []
     @pins = []
     player_response.chars.each { |color| @balls << Ball.new(color) }
   end
 
-  # string -> return pins that are correct or in position
+  # Start by setting an index to 0. Take anser and convert from str to array.
+  # Basically checks ball at each index to confirm it's right. If so it then deletes
+  # that ball and moves on to the next one until it's done checking the array.
+  # Then we can use our counter quantity to add our pins into the pin array and
+  # convert those pins to true for correct.
+
   def check_answer(answer)
     counter = 0
     ball_holder = list_balls
     ball_array = answer.chars
-    unique_balls = ball_array.uniq
 
     #adds in and sets to correct
     ball_array.each_with_index do |ball, index|
@@ -49,7 +63,7 @@ class Player
     end
 
     list_balls.each_with_index do |ball, index|
-      # handles whetehr balls are in position
+      # handles whether balls are in position
       if ball_array[index] == ball
         @pins.find { |pin| pin.position == false }.both_correct
       end
