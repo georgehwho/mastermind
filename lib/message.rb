@@ -1,6 +1,14 @@
 class Message
 
-  def welcome_prompt
+  def welcome
+    'Welcome to MASTERMIND'
+  end
+
+  def game_start
+    'Would you like to (p)lay, read the (i)instructions, or (q)uit?'
+  end
+
+  def turn_prompt
     "I have generated a beginner sequence with four elements made up of: (r)ed,
     (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.
     What's your guess?"
@@ -22,6 +30,7 @@ class Message
 
   def instructions
     #presented with a short explanation of how the game is played.
+    'here is how to play. Press any key to go back and q to quit'
   end
 
   def quitting
