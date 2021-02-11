@@ -7,13 +7,14 @@ class Player
     @pins = []
   end
 # Method starts with empty arrays because we want to start fresh in between trurns.
-# Lines 18 - 23 > We are taking the argument "num_balls" and using the times method to get 16
-# balls added into our holder, ball_storage. Lines 24 & 25 > We are using shuffle method
+# Lines 21 - 25 > We are taking the argument "num_balls" multiplying it by each color
+# and adding it into our holder, ball_storage. Lines 24 & 25 > We are using shuffle method
 # to "randomize" the balls and then indexing based on our argument but then subtracting one
 # to account for 0 equaling the 1st ball. Then we are iterating over random_balls, creating
 # a ball object with it's color argument and adding it to our @balls array.
 
   def generate(num_balls)
+      # ['r', 'g', 'y', 'b'].shuffle
     @balls = []
     @pins = []
     ball_storage = []
@@ -27,7 +28,7 @@ class Player
     random_balls.each { |ball| @balls << Ball.new(ball) }
   end
 
-# Method starts with empty arrays because we want to start fresh in between trurns.
+# Method starts with empty arrays because we don't want to add to our answer by accident.
 # We then turn the player_response into an array that we iterate over,convert to colored
 # ball objects, and add our into the @balls array. Basically restructing the argument/answer # and adding into new array.
 
