@@ -13,7 +13,7 @@ class Player
 # to account for 0 equaling the 1st ball. Then we are iterating over random_balls, creating
 # a ball object with it's color argument and adding it to our @balls array.
 
-  def generate(num_balls)
+  def generate(num_balls = 4)
       # ['r', 'g', 'y', 'b'].shuffle
     @balls = []
     @pins = []
