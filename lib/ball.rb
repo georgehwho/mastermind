@@ -1,4 +1,4 @@
-class Ball
+ class Ball
   attr_reader :color
 
   def initialize(color)

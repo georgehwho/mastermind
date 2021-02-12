@@ -1,4 +1,4 @@
-class Message
+module Message
 
   def welcome
     'Welcome to MASTERMIND'
@@ -15,12 +15,12 @@ class Message
   end
 
   def turn_result
-    "'RRGB' has 3 of the correct elements with 2 in the correct positions
+    "#{turn.player.list_balls} has #{turn.place_pins[0]} of the correct elements with #{turn.place_pins[1]} in the correct positions
     You've taken #{number of guesses} guesses"
   end
 
   def end_game
-    "Congratulations! You guessed the sequence 'GRRB' in #{guesses} guesses over #{time}"
+    "Congratulations! You guessed the sequence #{player answer } in #{guesses} guesses over #{time}"
     # retry method here
   end
 
@@ -51,6 +51,14 @@ class Message
 
   def method_name
     "Whatever...you win I guess. Best two out of three?!"
+  end
+
+  def user_error_msgs
+    {
+      greater4: 'too many balls!!!',
+      less4: 'too little balls!!!',
+      general: 'you messed up in general.'
+    }
   end
 
 end

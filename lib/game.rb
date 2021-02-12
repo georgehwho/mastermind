@@ -1,24 +1,26 @@
+require_relative 'message'
+
 class Game
-  attr_reader :turn, :messages
+  include Message
+  attr_reader :turn
 
   def initialize(turn)
     @turn = turn
-    @messages = Message.new
   end
 
   def start
-    messages.welcome
+    game.welcome
     puts
     first_prompt
   end
 
   def first_prompt
-    messages.game_start
+    game.game_start
 
     input = gets.chomp.downcase
     if input == 'p'
       turn.start_phase
-      messages.turn_prompt
+      game.turn_prompt
       playing
     elsif input == 'i'
       turn.instructions
@@ -40,5 +42,4 @@ class Game
     #   #insert game logic here
     end
   end
-
 end
