@@ -3,7 +3,7 @@ require 'benchmark'
 
 class Game
   include Message
-  attr_reader :turn, :round
+  attr_reader :turn, :round, :time1, :time2
 
   def initialize
     @turn = Turn.new
@@ -11,6 +11,7 @@ class Game
   end
 
   def start
+    @time1 = Time.new
     puts game_msgs[:welcome]
     puts
     first_prompt
@@ -52,7 +53,8 @@ class Game
       puts turn.guess(input, round)
 
       if turn.pin_results == [4,4]
-        puts end_game(input, round)
+        @time2 = Time.new 
+        puts end_game(input, round, time2-time1)
       else
         turn.clear_pins
         playing
