@@ -14,7 +14,6 @@ class Player
 # a ball object with it's color argument and adding it to our @balls array.
 
   def generate(num_balls = 4)
-      # ['r', 'g', 'y', 'b'].shuffle
     @balls = []
     @pins = []
     ball_storage = []
@@ -80,8 +79,6 @@ class Player
   # returns an array of the results with index 0 being only correct and index 1 meaning both are correct
   # no argument -> array of results
   def place_pins
-    return nil if @pins.empty?
-
     results = [0, 0]
     @pins.each do |pin|
       if pin.correct == true
@@ -91,7 +88,10 @@ class Player
         results[1] += 1
       end
     end
-    @pins = 0
     results
+  end
+
+  def reset_pins
+    @pins = []
   end
 end

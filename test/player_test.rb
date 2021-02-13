@@ -96,17 +96,20 @@ class PlayerTest < Minitest::Test
     player = Player.new
     player.set_answer("gybb")
     player.check_answer("rrrr")
-    assert_nil player.place_pins
+    assert_equal [0,0], player.place_pins
+    assert_equal [], player.reset_pins
 
     player.set_answer("rgyb")
     player.check_answer("rrrr")
     assert_equal true, player.pins[0].correct
     assert_equal true, player.pins[0].position
     assert_equal [1, 1], player.place_pins
+    assert_equal [], player.reset_pins
 
     player.set_answer("rgyb")
     player.check_answer("brrr")
     assert_equal [2, 0], player.place_pins
+    assert_equal [], player.reset_pins
 
     player.set_answer("bryb")
     player.check_answer("brrr")
