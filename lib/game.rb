@@ -23,6 +23,7 @@ class Game
     if input == 'p'
       turn.start_phase
       puts game_msgs[:turn_prompt]
+      @time1 = Time.now
       playing
     elsif input == 'i'
       instructions
@@ -46,19 +47,22 @@ class Game
   end
 
   def playing
-    @time1 = Time.new
     print '> '
-    input = gets.chomp
-    if input.downcase == 'c'
+    input = gets.chomp.downcase
+    if input == 'c'
       puts turn.cheat
       playing
+    elsif input == 'q'
+      quitting
     else
       @round += 1
       puts turn.guess(input, round)
 
       if turn.pin_results == [4,4]
-        @time2 = Time.new
-        puts end_game(input, round, time2-time1)
+        @time2 = Time.now
+        puts
+        puts end_game(input, round, time1, time2)
+        puts
         again
       else
         turn.clear_pins
@@ -72,8 +76,14 @@ class Game
     print '> '
     input = gets.chomp.downcase
     if input == 'p'
+      puts
+      turn.start_phase
+      @round = 0
+      @time1 = Time.now
+      puts game_msgs[:turn_prompt]
       playing
     elsif input == 'q'
+      puts
       quitting
     else
       again
