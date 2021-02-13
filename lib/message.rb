@@ -3,7 +3,7 @@ require 'tty-font'
 module Message
 
   def turn_result(guess = '', results = [0,0], round = 0)
-    "#{guess.upcase} has #{results[0]} of the correct elements with #{results[1]} in the correct positions\nYou've taken #{round} guesses"
+    "'#{guess.upcase}' has #{results[0]} of the correct elements with #{results[1]} in the correct positions\nYou've taken #{round} guesses"
   end
 
   def tier_1
