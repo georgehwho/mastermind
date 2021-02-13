@@ -32,7 +32,7 @@ module Message
   end
   # Turn Prompts above ______________________________________Game prompts below
   def end_game(input = '', round = 0, time = 0)
-    "Congratulations! You guessed the sequence #{input.upcase} in #{round} guesses over #{(time / 60).round} minutes, #{time.round % 60} seconds."
+    "Congratulations! You guessed the sequence '#{input.upcase}' in #{round} guesses over #{(time / 60).round} minutes, #{time.round % 60} seconds."
   end
 
   def retry
