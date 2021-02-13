@@ -1,45 +1,62 @@
 require_relative 'message'
+require 'benchmark'
 
 class Game
   include Message
-  attr_reader :turn
+  attr_reader :turn, :round
 
-  def initialize(turn)
-    @turn = turn
+  def initialize
+    @turn = Turn.new
+    @round = 0
   end
 
   def start
-    game.welcome
+    puts game_msgs[:welcome]
     puts
     first_prompt
   end
 
   def first_prompt
-    game.game_start
-
+    puts game_msgs[:game_start]
+    print '> '
     input = gets.chomp.downcase
     if input == 'p'
       turn.start_phase
-      game.turn_prompt
+      puts game_msgs[:turn_prompt]
       playing
     elsif input == 'i'
-      turn.instructions
+      puts instructions
+      print '> '
       instruction_input = gets.chomp.downcase
       if instruction_input == 'q'
-        break
+        puts quitting
       else
         first_prompt
       end
     elsif input == 'q'
-      break
+      puts quitting
     else
-      puts "you didn't answer correctly!"
+      puts user_error_msgs[:bad_instructions]
       first_prompt
     end
   end
 
   def playing
-    #   #insert game logic here
+    print '> '
+    input = gets.chomp
+    if input.downcase == 'c'
+      puts turn.cheat
+      playing
+    else
+      @round += 1
+      puts turn.guess(input, round)
+
+      if turn.pin_results == [4,4]
+        puts end_game(input, round)
+      else
+        turn.clear_pins
+        playing
+      end
     end
   end
 end
