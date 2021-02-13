@@ -55,7 +55,7 @@ module Message
       game_start: 'Would you like to (p)lay, read the (i)instructions, or (q)uit?',
       welcome: font.write("Welcome To") + "\n" + font.write("MASTERMIND"),
       bad_instructions: "you didn't enter a valid instruction",
-      turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game. What's your guess?",
+      turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\nWhat's your guess?",
       play_again: "Do you want to (p)lay again or (q)uit?"
     }
   end
