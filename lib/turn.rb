@@ -14,14 +14,15 @@ class Turn
     player.generate(4)
   end
 
-  def guess(input)
+  def guess(input, round = 0)
     @sanitized = input.delete(" ").downcase
-    until sanitized.length == 4 && incorrect_characters?
-      player.check_answer(sanitized)
-      # play_pins
-    end
 
-    if sanitized.length > 4
+    if correct_characters? == false
+      user_error_msgs[:bad_inputs]
+    elsif sanitized.length == 4
+      player.check_answer(sanitized)
+      play_pins(round)
+    elsif sanitized.length > 4
       user_error_msgs[:greater4]
     elsif sanitized.length < 4
       user_error_msgs[:less4]
@@ -30,23 +31,26 @@ class Turn
     end
   end
 
-  def play_pins
-    # turn_result
-  end
-
-  def incorrect_characters?
-    sanitized.each do |character|
-      %w[r g y b].include?(character) ? true : puts "You didn't input the correct characters"
+  def correct_characters?(input = sanitized)
+    input.split('').each do |character|
+      return false unless ["r", "g", "b", "y"].include?(character)
     end
+    true
   end
 
+  def play_pins(round)
+    turn_result(sanitized, pin_results, round)
+  end
 
+  def pin_results
+    player.place_pins
+  end
 
-  # guess
+  def clear_pins
+    player.reset_pins
+  end
 
-  # comparison of guess to generated code
-  #
-  # response to that guess via pins
-
-  # Need instance of player in turn because turn needs to use methods in player
+  def cheat
+    player.list_balls.join
+  end
 end
