@@ -25,14 +25,12 @@ module Message
       greater4: 'too many balls!!!',
       less4: 'too little balls!!!',
       general: 'you messed up in general.',
-      bad_inputs: "you didn't input the correct colors",
-      bad_instructions: "you didn't enter a valid instruction"
+      bad_inputs: "you didn't input the correct colors"
     }
   end
   # Turn Prompts above ______________________________________Game prompts below
-  def end_game
-    "Congratulations! You guessed the sequence #{player answer } in #{guesses} guesses over #{time}"
-    # retry method here
+  def end_game(input = '', round = 0, time = 0)
+    "Congratulations! You guessed the sequence #{input.upcase} in #{round} guesses over #{(time / 60).round} minutes, #{time.round % 60} seconds."
   end
 
   def retry
@@ -52,7 +50,8 @@ module Message
     {
       game_start: 'Would you like to (p)lay, read the (i)instructions, or (q)uit?',
       welcome: 'Welcome to MASTERMIND!',
-      turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game. What's your guess?",
+      bad_instructions: "you didn't enter a valid instruction",
+      turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game. What's your guess?"
     }
   end
 
