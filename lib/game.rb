@@ -11,7 +11,6 @@ class Game
   end
 
   def start
-    @time1 = Time.new
     puts game_msgs[:welcome]
     puts
     first_prompt
@@ -26,23 +25,28 @@ class Game
       puts game_msgs[:turn_prompt]
       playing
     elsif input == 'i'
-      puts instructions
-      print '> '
-      instruction_input = gets.chomp.downcase
-      if instruction_input == 'q'
-        puts quitting
-      else
-        first_prompt
-      end
+      instructions
     elsif input == 'q'
-      puts quitting
+      quitting
     else
       puts user_error_msgs[:bad_instructions]
       first_prompt
     end
   end
 
+  def instructions
+    puts instructions_prompt
+    print '> '
+    instruction_input = gets.chomp.downcase
+    if instruction_input == 'q'
+      quitting
+    else
+      first_prompt
+    end
+  end
+
   def playing
+    @time1 = Time.new
     print '> '
     input = gets.chomp
     if input.downcase == 'c'
@@ -53,12 +57,26 @@ class Game
       puts turn.guess(input, round)
 
       if turn.pin_results == [4,4]
-        @time2 = Time.new 
+        @time2 = Time.new
         puts end_game(input, round, time2-time1)
+        again
       else
         turn.clear_pins
         playing
       end
+    end
+  end
+
+  def again
+    puts game_msgs[:play_again]
+    print '> '
+    input = gets.chomp.downcase
+    if input == 'p'
+      playing
+    elsif input == 'q'
+      quitting
+    else
+      again
     end
   end
 end

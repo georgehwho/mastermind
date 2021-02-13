@@ -24,10 +24,8 @@ class Turn
       play_pins(round)
     elsif sanitized.length > 4
       user_error_msgs[:greater4]
-    elsif sanitized.length < 4
+    else sanitized.length < 4
       user_error_msgs[:less4]
-    else
-      user_error_msgs[:general]
     end
   end
 

@@ -8,6 +8,7 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.2)
+    tty-font (0.2.0)
 
 PLATFORMS
   x86_64-darwin-19
@@ -15,6 +16,7 @@ PLATFORMS
 
 DEPENDENCIES
   simplecov
+  tty-font (~> 0.2.0)
 
 BUNDLED WITH
    2.2.5

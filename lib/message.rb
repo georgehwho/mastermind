@@ -1,7 +1,9 @@
+require 'tty-font'
+
 module Message
 
   def turn_result(guess = '', results = [0,0], round = 0)
-    "#{guess.upcase} has #{results[0]} of the correct elements with #{results[1]} in the correct positions \n You've taken #{round} guesses"
+    "#{guess.upcase} has #{results[0]} of the correct elements with #{results[1]} in the correct positions\nYou've taken #{round} guesses"
   end
 
   def tier_1
@@ -37,21 +39,24 @@ module Message
     "Do you want to (p)lay again or (q)uit?"
   end
 
-  def instructions
+  def instructions_prompt
     #presented with a short explanation of how the game is played.
-    'here is how to play. Press any key to go back and q to quit'
+    "Here is how to play.\nPress any key to go back or (q) to quit"
   end
 
   def quitting
-    'goodbye msg and game exits'
+    font = TTY::Font.new(:doom)
+    puts font.write("GOODBYE")
   end
 
   def game_msgs
+    font = TTY::Font.new(:doom)
     {
       game_start: 'Would you like to (p)lay, read the (i)instructions, or (q)uit?',
-      welcome: 'Welcome to MASTERMIND!',
+      welcome: font.write("Welcome To") + "\n" + font.write("MASTERMIND"),
       bad_instructions: "you didn't enter a valid instruction",
-      turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game. What's your guess?"
+      turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game. What's your guess?",
+      play_again: "Do you want to (p)lay again or (q)uit?"
     }
   end
 
