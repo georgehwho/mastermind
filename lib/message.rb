@@ -8,8 +8,8 @@ module Message
 
   def user_error_msgs
     {
-      greater4: 'You are guessing with too many balls!',
-      less4: 'You are not guessing with enough balls!',
+      greater: 'You are guessing with too many balls!',
+      less: 'You are not guessing with enough balls!',
       bad_inputs: "You didn't guess with the correct colors!"
     }
   end
@@ -31,7 +31,7 @@ module Message
 
   def quitting
     font = TTY::Font.new(:doom)
-    puts font.write("GOODBYE")
+    font.write("GOODBYE")
   end
 
   def game_msgs
@@ -39,9 +39,10 @@ module Message
     {
       game_start: 'Would you like to (p)lay, read the (i)instructions, or (q)uit?',
       welcome: font.write("Welcome To") + "\n" + font.write("MASTERMIND"),
-      bad_instructions: "you didn't enter a valid instruction",
+      bad_instructions: "You didn't enter a valid instruction",
       turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\nWhat's your guess?",
-      play_again: "Do you want to (p)lay again or (q)uit?"
+      play_again: "Do you want to (p)lay again or (q)uit?",
+      difficulty_levels: "What difficulty do you want to play?\n(b)eginner = 4 characters, 4 colors\n(i)ntermediate = 6 characters, 5 colors\n(a)dvanced = 8 characters, 6 colors"
     }
   end
 
