@@ -4,8 +4,7 @@ class Turn
   include Message
 
   attr_reader :player,
-              :sanitized,
-              :colors
+              :sanitized
 
   def initialize()
     @player = Player.new
@@ -17,14 +16,11 @@ class Turn
 
   def guess(input, round, difficulty = 4)
     @sanitized = input.delete(" ").downcase
-    @colors = Player::EASY if difficulty == 4
-    @colors = Player::INTERMEDIATE if difficulty == 6
-    @colors = Player::HARD if difficulty == 8
     guess_helper(round, difficulty)
   end
 
   def guess_helper(round, difficulty)
-    if correct_characters?(colors) == false
+    if correct_characters?(player.difficulty) == false
       return user_error_msgs[:bad_inputs]
     elsif sanitized.length == difficulty
       player.check_answer(sanitized)
