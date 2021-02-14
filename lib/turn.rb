@@ -25,15 +25,12 @@ class Turn
 
   def guess_helper(round, difficulty)
     if correct_characters?(colors) == false
-      user_error_msgs[:bad_inputs]
+      return user_error_msgs[:bad_inputs]
     elsif sanitized.length == difficulty
       player.check_answer(sanitized)
-      play_pins(round)
-    elsif sanitized.length > difficulty
-      user_error_msgs[:greater]
-    else sanitized.length < difficulty
-      user_error_msgs[:less]
+      return play_pins(round)
     end
+    sanitized.length > difficulty ? user_error_msgs[:greater] : user_error_msgs[:less]
   end
 
   def correct_characters?(difficulty, input = sanitized)
