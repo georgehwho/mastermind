@@ -1,4 +1,5 @@
 require_relative 'message'
+require 'csv'
 
 class Game
   include Message
@@ -91,6 +92,9 @@ class Game
       if turn.win?(difficulty)
         @time2 = Time.now
         puts
+        CSV.open("results.csv", "a") do |csv|
+          csv << [input, round, time2-time1]
+        end
         puts end_game(input, round, time1, time2)
         puts
         again
@@ -100,6 +104,7 @@ class Game
       end
     end
   end
+
 
   def again
     puts game_msgs[:play_again]
