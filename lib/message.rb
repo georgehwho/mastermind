@@ -6,31 +6,16 @@ module Message
     "'#{guess.upcase}' has #{results[0]} of the correct elements with #{results[1]} in the correct positions\nYou've taken #{round} guesses"
   end
 
-  def tier_1
-    "Look at you go"
-  end
-
-  def tier_2
-    "You heating up but you won't do it again."
-  end
-
-  def tier_3
-    "I let you have that one!"
-  end
-
-  def tier_4
-    "Whatever...you win I guess. Best two out of three?!"
-  end
-
   def user_error_msgs
     {
-      greater4: 'too many balls!!!',
-      less4: 'too little balls!!!',
-      general: 'you messed up in general.',
-      bad_inputs: "you didn't input the correct colors"
+      greater4: 'You are guessing with too many balls!',
+      less4: 'You are not guessing with enough balls!',
+      bad_inputs: "You didn't guess with the correct colors!"
     }
   end
+
   # Turn Prompts above ______________________________________Game prompts below
+
   def end_game(input = '', round = 0, start_time, end_time)
     "Congratulations! You guessed the sequence '#{input.upcase}' in #{round} guesses over #{((end_time-start_time) / 60).round} minutes, #{((end_time-start_time) % 60).round} seconds."
   end
