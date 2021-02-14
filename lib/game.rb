@@ -2,6 +2,7 @@ require_relative 'message'
 
 class Game
   include Message
+
   attr_reader :turn,
               :round,
               :time1,
@@ -35,10 +36,10 @@ class Game
   end
 
   def start_prompt
-    pick_difficulty # this is a method
+    pick_difficulty
     @round = 0
     @time1 = Time.now
-    playing # this is a method
+    playing
   end
 
   def pick_difficulty
@@ -60,7 +61,7 @@ class Game
     else
       puts game_msgs[:bad_instructions]
       puts
-      pick_difficulty # this is a method
+      pick_difficulty
     end
   end
 
@@ -71,7 +72,7 @@ class Game
     if instruction_input == 'q'
       puts quitting
     else
-      first_prompt # this is a method
+      first_prompt
     end
   end
 
