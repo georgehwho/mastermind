@@ -48,15 +48,15 @@ class Game
     if input == 'b'
       @difficulty = 4
       turn.start_phase(4)
-      puts game_msgs[:beginner_turn_prompt]
+      puts game_msgs[:beginner_game_prompt]
     elsif input == 'i'
       @difficulty = 6
       turn.start_phase(6)
-      puts game_msgs[:intermediate_turn_prompt]
+      puts game_msgs[:intermediate_game_prompt]
     elsif input == 'a'
       @difficulty = 8
       turn.start_phase(8)
-      puts game_msgs[:advanced_turn_prompt]
+      puts game_msgs[:advanced_game_prompt]
     else
       puts game_msgs[:bad_instructions]
       puts

@@ -41,9 +41,9 @@ module Message
       game_start: 'Would you like to (p)lay, read the (i)instructions, or (q)uit?',
       welcome: font.write("Welcome To") + "\n" + font.write("MASTERMIND"),
       bad_instructions: "You didn't enter a valid instruction",
-      beginner_turn_prompt: game_level_helper[:beginner_intro] + game_level_helper[:beginner_color] + game_level_helper[:outro],
-      intermediate_turn_prompt: game_level_helper[:intermediate_intro] + game_level_helper[:intermediate_color] + game_level_helper[:outro],
-      advanced_turn_prompt: game_level_helper[:advanced_intro] + game_level_helper[:advanced_color] + game_level_helper[:outro],
+      beginner_game_prompt: game_level_helper[:beginner_intro] + game_level_helper[:beginner_color] + game_level_helper[:outro],
+      intermediate_game_prompt: game_level_helper[:intermediate_intro] + game_level_helper[:intermediate_color] + game_level_helper[:outro],
+      advanced_game_prompt: game_level_helper[:advanced_intro] + game_level_helper[:advanced_color] + game_level_helper[:outro],
       play_again: "Do you want to (p)lay again or (q)uit?",
       difficulty_levels: "What difficulty do you want to play?\n(b)eginner = 4 characters, 4 colors\n(i)ntermediate = 6 characters, 5 colors\n(a)dvanced = 8 characters, 6 colors"
     }
@@ -53,10 +53,13 @@ module Message
     {
       beginner_intro: "I have generated a beginner sequence with four elements made up of:\n",
       beginner_color: colors[:red] + ", " + colors[:green] + ", " + colors[:blue] + ", and " + colors[:yellow],
+
       intermediate_intro: "I have generated a intermediate sequence with six elements made up of:\n",
       intermediate_color: colors[:red] + ", " + colors[:green] + ", " + colors[:blue] + ", " + colors[:yellow] + ", and " + colors[:orange],
+
       advanced_intro: "I have generated a advanced sequence with eight elements made up of:\n",
       advanced_color: colors[:red] + ", " + colors[:green] + ", " + colors[:blue] + ", " + colors[:yellow] + ", " + colors[:orange] + ", and " + colors[:magenta],
+
       outro: ".\nUse (q)uit at any time to end the game.\nWhat's your guess?"
     }
   end
