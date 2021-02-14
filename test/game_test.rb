@@ -6,8 +6,13 @@ require './lib/ball'
 require './lib/game'
 
 class GameTest < Minitest::Test
-  def test_it_exist
-    game = Game.new
-    assert_instance_of Game, game
+  def setup
+    @game = Game.new
   end
+
+  def test_it_exist
+    assert_instance_of Game, @game
+  end
+
+  # I wasn't able to figure out how to test methods that interact with $stdin.
 end

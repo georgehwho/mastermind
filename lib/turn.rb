@@ -4,34 +4,41 @@ class Turn
   include Message
 
   attr_reader :player,
-              :sanitized
+              :sanitized,
+              :colors
 
   def initialize()
     @player = Player.new
   end
 
-  def start_phase
-    player.generate(4)
+  def start_phase(input)
+    player.generate(input)
   end
 
-  def guess(input, round = 0)
+  def guess(input, round, difficulty = 4)
     @sanitized = input.delete(" ").downcase
+    @colors = Player::EASY if difficulty == 4
+    @colors = Player::INTERMEDIATE if difficulty == 6
+    @colors = Player::HARD if difficulty == 8
+    guess_helper(round, difficulty)
+  end
 
-    if correct_characters? == false
+  def guess_helper(round, difficulty)
+    if correct_characters?(colors) == false
       user_error_msgs[:bad_inputs]
-    elsif sanitized.length == 4
+    elsif sanitized.length == difficulty
       player.check_answer(sanitized)
       play_pins(round)
-    elsif sanitized.length > 4
-      user_error_msgs[:greater4]
-    else sanitized.length < 4
-      user_error_msgs[:less4]
+    elsif sanitized.length > difficulty
+      user_error_msgs[:greater]
+    else sanitized.length < difficulty
+      user_error_msgs[:less]
     end
   end
 
-  def correct_characters?(input = sanitized)
+  def correct_characters?(difficulty, input = sanitized)
     input.split('').each do |character|
-      return false unless ["r", "g", "b", "y"].include?(character)
+      return false unless difficulty.include?(character)
     end
     true
   end
@@ -42,6 +49,10 @@ class Turn
 
   def pin_results
     player.place_pins
+  end
+
+  def win?(difficulty)
+    pin_results == [difficulty, difficulty]
   end
 
   def clear_pins

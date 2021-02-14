@@ -6,31 +6,16 @@ module Message
     "'#{guess.upcase}' has #{results[0]} of the correct elements with #{results[1]} in the correct positions\nYou've taken #{round} guesses"
   end
 
-  def tier_1
-    "Look at you go"
-  end
-
-  def tier_2
-    "You heating up but you won't do it again."
-  end
-
-  def tier_3
-    "I let you have that one!"
-  end
-
-  def tier_4
-    "Whatever...you win I guess. Best two out of three?!"
-  end
-
   def user_error_msgs
     {
-      greater4: 'too many balls!!!',
-      less4: 'too little balls!!!',
-      general: 'you messed up in general.',
-      bad_inputs: "you didn't input the correct colors"
+      greater: 'You are guessing with too many balls!',
+      less: 'You are not guessing with enough balls!',
+      bad_inputs: "You didn't guess with the correct colors!"
     }
   end
+
   # Turn Prompts above ______________________________________Game prompts below
+
   def end_game(input = '', round = 0, start_time, end_time)
     "Congratulations! You guessed the sequence '#{input.upcase}' in #{round} guesses over #{((end_time-start_time) / 60).round} minutes, #{((end_time-start_time) % 60).round} seconds."
   end
@@ -46,7 +31,7 @@ module Message
 
   def quitting
     font = TTY::Font.new(:doom)
-    puts font.write("GOODBYE")
+    font.write("GOODBYE")
   end
 
   def game_msgs
@@ -54,9 +39,12 @@ module Message
     {
       game_start: 'Would you like to (p)lay, read the (i)instructions, or (q)uit?',
       welcome: font.write("Welcome To") + "\n" + font.write("MASTERMIND"),
-      bad_instructions: "you didn't enter a valid instruction",
-      turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\nWhat's your guess?",
-      play_again: "Do you want to (p)lay again or (q)uit?"
+      bad_instructions: "You didn't enter a valid instruction",
+      beginner_turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\nWhat's your guess?",
+      intermediate_turn_prompt: "I have generated a intermediate sequence with six elements made up of: (r)ed, (g)reen, (b)lue, (y)ellow, and (o)range. Use (q)uit at any time to end the game.\nWhat's your guess?",
+      advanced_turn_prompt: "I have generated a advanced sequence with eight elements made up of: (r)ed, (g)reen, (b)lue, (y)ellow, (o)range, and (m)agenta. Use (q)uit at any time to end the game.\nWhat's your guess?",
+      play_again: "Do you want to (p)lay again or (q)uit?",
+      difficulty_levels: "What difficulty do you want to play?\n(b)eginner = 4 characters, 4 colors\n(i)ntermediate = 6 characters, 5 colors\n(a)dvanced = 8 characters, 6 colors"
     }
   end
 

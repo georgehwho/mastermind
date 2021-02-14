@@ -1,13 +1,15 @@
 require_relative 'message'
-require 'benchmark'
 
 class Game
   include Message
-  attr_reader :turn, :round, :time1, :time2
+  attr_reader :turn,
+              :round,
+              :time1,
+              :time2,
+              :difficulty
 
   def initialize
     @turn = Turn.new
-    @round = 0
   end
 
   def start
@@ -19,46 +21,73 @@ class Game
   def first_prompt
     puts game_msgs[:game_start]
     print '> '
-    input = gets.chomp.downcase
+    input = sanitized_gets
     if input == 'p'
-      turn.start_phase
-      puts game_msgs[:turn_prompt]
-      @time1 = Time.now
-      playing
+      start_prompt
     elsif input == 'i'
       instructions
     elsif input == 'q'
-      quitting
+      puts quitting
     else
       puts user_error_msgs[:bad_instructions]
       first_prompt
     end
   end
 
+  def start_prompt
+    pick_difficulty # this is a method
+    @round = 0
+    @time1 = Time.now
+    playing # this is a method
+  end
+
+  def pick_difficulty
+    puts game_msgs[:difficulty_levels]
+    print '> '
+    input = sanitized_gets
+    if input == 'b'
+      @difficulty = 4
+      turn.start_phase(4)
+      puts game_msgs[:beginner_turn_prompt]
+    elsif input == 'i'
+      @difficulty = 6
+      turn.start_phase(6)
+      puts game_msgs[:intermediate_turn_prompt]
+    elsif input == 'a'
+      @difficulty = 8
+      turn.start_phase(8)
+      puts game_msgs[:advanced_turn_prompt]
+    else
+      puts game_msgs[:bad_instructions]
+      puts
+      pick_difficulty # this is a method
+    end
+  end
+
   def instructions
     puts instructions_prompt
     print '> '
-    instruction_input = gets.chomp.downcase
+    instruction_input = sanitized_gets
     if instruction_input == 'q'
-      quitting
+      puts quitting
     else
-      first_prompt
+      first_prompt # this is a method
     end
   end
 
   def playing
     print '> '
-    input = gets.chomp.downcase
+    input = sanitized_gets
     if input == 'c'
       puts turn.cheat
       playing
     elsif input == 'q'
-      quitting
+      puts quitting
     else
       @round += 1
-      puts turn.guess(input, round)
+      puts turn.guess(input, round, difficulty)
 
-      if turn.pin_results == [4,4]
+      if turn.win?(difficulty)
         @time2 = Time.now
         puts
         puts end_game(input, round, time1, time2)
@@ -74,19 +103,21 @@ class Game
   def again
     puts game_msgs[:play_again]
     print '> '
-    input = gets.chomp.downcase
+    input = sanitized_gets
     if input == 'p'
       puts
-      turn.start_phase
-      @round = 0
-      @time1 = Time.now
-      puts game_msgs[:turn_prompt]
-      playing
+      start_prompt
     elsif input == 'q'
       puts
-      quitting
+      puts quitting
     else
+      puts game_msgs[:bad_instructions]
+      puts
       again
     end
+  end
+
+  def sanitized_gets
+    gets.chomp.downcase.delete(" ")
   end
 end
