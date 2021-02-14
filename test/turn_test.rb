@@ -25,13 +25,15 @@ class TurnTest < Minitest::Test
 
   def test_it_can_format_user_guess
     # skip
+    @turn.start_phase(4)
     @turn.guess('rRgy', 0)
     assert_equal 'rrgy', @turn.sanitized
   end
 
   def test_it_can_check_if_the_characters_are_correct
-    assert_equal true, @turn.correct_characters?(Player::EASY, 'rrrr')
-    assert_equal false, @turn.correct_characters?(Player::EASY, 'rrrx')
+    @turn.start_phase(4)
+    assert_equal true, @turn.correct_characters?(@turn.player.difficulty, 'rrrr')
+    assert_equal false, @turn.correct_characters?(@turn.player.difficulty, 'rrrx')
   end
 
   def test_it_knows_when_a_guess_has_bad_inputs

@@ -17,20 +17,38 @@ class PlayerTest < Minitest::Test
     assert_equal [], @player.pins
   end
 
+  def test_it_can_set_the_difficulty_to_easy
+    @player.difficulty_setter(4)
+
+    assert_equal Player::EASY, @player.difficulty
+  end
+
+  def test_it_can_set_the_difficulty_to_intermediate
+    @player.difficulty_setter(6)
+
+    assert_equal Player::INTERMEDIATE, @player.difficulty
+  end
+
+  def test_it_can_set_the_difficulty_to_hard
+    @player.difficulty_setter(8)
+
+    assert_equal Player::HARD, @player.difficulty
+  end
+
   def test_it_can_add_easy_balls_to_storage
-    @player.difficulty_generator(4)
+    @player.ball_generator(4)
 
     assert_equal 16, @player.ball_storage.size
   end
 
   def test_it_can_add_intermediate_balls_to_storage
-    @player.difficulty_generator(6)
+    @player.ball_generator(6)
 
     assert_equal 30, @player.ball_storage.size
   end
 
   def test_it_can_add_hard_balls_to_storage
-    @player.difficulty_generator(8)
+    @player.ball_generator(8)
 
     assert_equal 48, @player.ball_storage.size
   end
@@ -53,6 +71,12 @@ class PlayerTest < Minitest::Test
     assert_equal 8, @player.balls.size
   end
 
+  def test_it_can_reset_balls
+    @player.generate(8)
+
+    assert_equal [], @player.reset_balls
+  end
+  
   def test_it_can_set_answer
     @player.set_answer("rgyb")
 

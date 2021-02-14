@@ -2,9 +2,11 @@ class Player
   EASY = %w[r g y b]
   INTERMEDIATE = %w[r g y b o]
   HARD = %w[r g y b o m]
+  
   attr_reader :balls,
               :pins,
-              :ball_storage
+              :ball_storage,
+              :difficulty
 
   def initialize()
     @balls = []
@@ -12,26 +14,35 @@ class Player
   end
 
   def generate(num_balls = 4)
-    @balls = []
-    @pins = []
-    difficulty_generator(num_balls)
+    reset_balls
+    reset_pins
+    ball_generator(num_balls)
     random_balls = ball_storage.shuffle[0..num_balls - 1]
     random_balls.each { |ball| @balls << Ball.new(ball) }
   end
 
-  def difficulty_generator(num_balls)
-    difficulty = EASY if num_balls == 4
-    difficulty = INTERMEDIATE if num_balls == 6
-    difficulty = HARD if num_balls == 8
+  def set_answer(player_response)
+    reset_balls
+    reset_pins
+    difficulty_setter(player_response.size)
+    player_response.chars.each { |color| @balls << Ball.new(color) }
+  end
+
+  def reset_balls
+    @balls = []
+  end
+
+  def ball_generator(num_balls)
+    difficulty_setter(num_balls)
     @ball_storage = []
     num_balls.times { @ball_storage << difficulty }
     @ball_storage.flatten!
   end
 
-  def set_answer(player_response)
-    @balls = []
-    @pins = []
-    player_response.chars.each { |color| @balls << Ball.new(color) }
+  def difficulty_setter(total_num_balls)
+    @difficulty = EASY if total_num_balls == 4
+    @difficulty = INTERMEDIATE if total_num_balls == 6
+    @difficulty = HARD if total_num_balls == 8
   end
 
   def check_answer(answer)
