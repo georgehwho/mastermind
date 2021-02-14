@@ -40,7 +40,9 @@ module Message
       game_start: 'Would you like to (p)lay, read the (i)instructions, or (q)uit?',
       welcome: font.write("Welcome To") + "\n" + font.write("MASTERMIND"),
       bad_instructions: "You didn't enter a valid instruction",
-      turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\nWhat's your guess?",
+      beginner_turn_prompt: "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\nWhat's your guess?",
+      intermediate_turn_prompt: "I have generated a intermediate sequence with six elements made up of: (r)ed, (g)reen, (b)lue, (y)ellow, and (o)range. Use (q)uit at any time to end the game.\nWhat's your guess?",
+      advanced_turn_prompt: "I have generated a advanced sequence with eight elements made up of: (r)ed, (g)reen, (b)lue, (y)ellow, (o)range, and (m)agenta. Use (q)uit at any time to end the game.\nWhat's your guess?",
       play_again: "Do you want to (p)lay again or (q)uit?",
       difficulty_levels: "What difficulty do you want to play?\n(b)eginner = 4 characters, 4 colors\n(i)ntermediate = 6 characters, 5 colors\n(a)dvanced = 8 characters, 6 colors"
     }
