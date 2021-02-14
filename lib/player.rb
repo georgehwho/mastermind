@@ -1,4 +1,7 @@
 class Player
+  EASY = %w[r g y b]
+  INTERMEDIATE = %w[r g y b o]
+  HARD = %w[r g y b o m]
   attr_reader :balls,
               :pins,
               :ball_storage
@@ -11,26 +14,18 @@ class Player
   def generate(num_balls = 4)
     @balls = []
     @pins = []
-    generate_easy if num_balls == 4
-    generate_intermediate if num_balls == 6
-    generate_hard if num_balls == 8
+    difficulty_generator(num_balls)
     random_balls = ball_storage.shuffle[0..num_balls - 1]
     random_balls.each { |ball| @balls << Ball.new(ball) }
   end
 
-  def generate_easy
+  def difficulty_generator(num_balls)
+    difficulty = EASY if num_balls == 4
+    difficulty = INTERMEDIATE if num_balls == 6
+    difficulty = HARD if num_balls == 8
     @ball_storage = []
-    4.times { @ball_storage << 'r' << 'g' << 'y' << 'b' }
-  end
-
-  def generate_intermediate
-    @ball_storage = []
-    6.times { @ball_storage << 'r' << 'g' << 'y' << 'b' << 'o' }
-  end
-
-  def generate_hard
-    @ball_storage = []
-    8.times { @ball_storage << 'r' << 'g' << 'y' << 'b' << 'o' << 'm' }
+    num_balls.times { @ball_storage << difficulty }
+    @ball_storage.flatten!
   end
 
   def set_answer(player_response)
@@ -45,7 +40,6 @@ class Player
     check_pin_position(ball_array)
   end
 
-  ####
   def check_correct_pins(balls)
     ball_holder = list_balls
     balls.each_with_index do |ball, index|
@@ -57,7 +51,6 @@ class Player
     end
   end
 
-  ####
   def check_pin_position(balls)
     list_balls.each_with_index do |ball, index|
       if balls[index] == ball

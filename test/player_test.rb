@@ -18,19 +18,19 @@ class PlayerTest < Minitest::Test
   end
 
   def test_it_can_add_easy_balls_to_storage
-    @player.generate_easy
+    @player.difficulty_generator(4)
 
     assert_equal 16, @player.ball_storage.size
   end
 
   def test_it_can_add_intermediate_balls_to_storage
-    @player.generate_intermediate
+    @player.difficulty_generator(6)
 
     assert_equal 30, @player.ball_storage.size
   end
 
   def test_it_can_add_hard_balls_to_storage
-    @player.generate_hard
+    @player.difficulty_generator(8)
 
     assert_equal 48, @player.ball_storage.size
   end
