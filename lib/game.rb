@@ -1,5 +1,4 @@
 require_relative 'message'
-require 'benchmark'
 
 class Game
   include Message
