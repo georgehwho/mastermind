@@ -1,4 +1,8 @@
-# [Mastermind](https://backend.turing.io/module1/projects/mastermind)
+<p align="center">
+ <a href =  "https://backend.turing.io/module1/projects/mastermind">
+  <img src="https://i.imgur.com/bWQsBh1.png">
+ </a>
+</p> 
 
 Created by George Ho and Joe Ray, this is the classic game Mastermind.
 
@@ -6,15 +10,30 @@ Created by George Ho and Joe Ray, this is the classic game Mastermind.
 
 To run this program on your computer, please run:
 
+##### Clone Repo
+```cli
+git clone https://github.com/georgehwho/mastermind
 ```
+##### Change into Directory 
+```cli
+cd mastermind
+```
+##### Install Gems
+```cli
 bundle
 ```
 
-then:
-
-```
+##### Run Game on Command Line
+```cli
 ruby mastermind_runner.rb
 ```
+
+##### Run Test Suite on Command Line
+
+```cli 
+rake
+```
+_will run all test files and show coverage_
 
 ### Game Structure:
 
